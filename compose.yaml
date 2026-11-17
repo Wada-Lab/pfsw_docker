@@ -3,4 +3,5 @@ services:
         build: .
         ports:
             - "127.0.0.1:2222:22"
-
+        volumes:
+            - ./work:/home/student/work
