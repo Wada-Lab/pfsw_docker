@@ -10,6 +10,10 @@ RUN apt-get update && \
         openssh-server \
         procps \
         sudo \
+	emacs \
+	vim \
+	less \
+	git \
         man-db \
         manpages \
         manpages-dev \
@@ -32,6 +36,10 @@ RUN printf '%s\n' \
     'AllowUsers student' \
     > /etc/ssh/sshd_config.d/lab.conf
 
+COPY setup.sh /usr/local/bin/setup.sh
+RUN chmod +x /usr/local/bin/setup.sh
+
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D", "-e"]
+CMD /usr/local/bin/setup.sh && \
+    exec /usr/sbin/sshd -D -e
